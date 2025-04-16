@@ -1,0 +1,59 @@
+<nav class="navbar">
+  <div class="logo">
+    <img height="50" width="150" src="assets/images/logo.png" routerLink="index">
+  </div>
+
+  <!-- Public Navigation (shown when on public routes AND not logged in) -->
+  <div class="nav-links" *ngIf="!authService.isLoggedIn()">
+    <a routerLink="index" routerLinkActive="active">Home</a>
+    <a routerLink="login" routerLinkActive="active">Login</a>
+    <a routerLink="signup" routerLinkActive="active">Signup</a>
+  </div>
+
+  <!-- Private Navigation (shown when logged in) -->
+  <div class="nav-links" *ngIf=" authService.isLoggedIn()">
+    <a routerLink="home" routerLinkActive="active">Home</a>
+    <a routerLink="search" routerLinkActive="active">Search</a>
+
+    <!-- Admin-only links -->
+    <a *ngIf="isAdmin()" routerLink="admin" routerLinkActive="active">Admin</a>
+  </div>
+
+  <!-- Contact/Logout buttons -->
+  <button *ngIf="!authService.isLoggedIn()"
+          routerLink="contact"
+          class="contact-btn">
+    Contact us
+  </button>
+
+  <button *ngIf="authService.isLoggedIn()"
+          (click)="logout()"
+          class="contact-btn">
+    Log out
+  </button>
+
+  <!-- Mobile menu button -->
+  <button class="mobile-menu-btn">
+    <span></span>
+    <span></span>
+    <span></span>
+  </button>
+</nav>
+
+<!-- Mobile Menu -->
+<div class="mobile-menu">
+  <a routerLink="index" routerLinkActive="active">Home</a>
+  <a *ngIf="!authService.isLoggedIn()" routerLink="login">Login</a>
+  <a *ngIf="!authService.isLoggedIn()" routerLink="signup">Signup</a>
+  <a *ngIf="authService.isLoggedIn()" routerLink="home">Dashboard</a>
+  <a *ngIf="authService.isLoggedIn()" routerLink="search">Search</a>
+  <a *ngIf="isAdmin()" routerLink="admin">Admin</a>
+  <button *ngIf="authService.isLoggedIn()" (click)="logout()" class="contact-btn">Log out</button>
+  <button *ngIf="!authService.isLoggedIn()" routerLink="contact" class="contact-btn">Contact us</button>
+</div>
+
+<router-outlet></router-outlet>
+
+<footer class="footer">
+  Made with ❤️ by Graines Academy
+</footer>
