@@ -1,3 +1,5 @@
+import {environment} from '../models/environment';
+
 declare var google:any;
 
 import { Component } from '@angular/core';
@@ -86,10 +88,9 @@ export class LoginComponent {
       this.errorMessage = 'Login failed. Please try again later.';
     }
   }
-
   ngOnInit() {
     google.accounts.id.initialize({
-      client_id: '',
+      client_id: environment.client_id,
       callback: (response: any) => this.handleGoogleSignIn(response)
     });
 
