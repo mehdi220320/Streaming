@@ -5,8 +5,7 @@ import { LoginComponent } from './login/login.component';
 import { SignupComponent } from './signup/signup.component';
 import { HomeComponent } from './home/home.component';
 import { ContactusComponent } from './contactus/contactus.component';
-import { AdminComponent } from './admin/admin.component';
-import { authGuard } from './services/auth.guard'; // Import your auth guard
+import { authGuard } from './services/auth.guard';
 
 const routes: Routes = [
   { path: '', redirectTo: '/index', pathMatch: 'full' },
@@ -18,13 +17,14 @@ const routes: Routes = [
     component: HomeComponent,
     canActivate: [authGuard]
   },
-  {
-    path: 'admin',
-    component: AdminComponent,
+
+
+  { path: 'contact', component: ContactusComponent },
+  { path: 'admin',
     canActivate: [authGuard],
-    data: { role: 'admin' }
-  },
-  { path: 'contact', component: ContactusComponent }
+    data: { role: 'admin' },
+    loadChildren: () => import('./admin/admin.module').then(m => m.AdminModule)
+  }
 ];
 @NgModule({
   imports: [RouterModule.forRoot(routes)],

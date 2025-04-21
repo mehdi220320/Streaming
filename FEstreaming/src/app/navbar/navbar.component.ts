@@ -2,7 +2,7 @@ import { Component, OnDestroy } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
 import { AuthHttpService } from '../services/AuthHttp.service';
 import { Subscription } from 'rxjs';
-
+declare var google:any;
 @Component({
   selector: 'app-navbar',
   standalone: false,
@@ -35,7 +35,24 @@ export class NavbarComponent implements OnDestroy {
 
   logout(): void {
     this.authService.logout();
-    this.router.navigate(['/index']);
+
+    if (typeof google !== 'undefined' && google.accounts && google.accounts.id) {
+      try {
+        google.accounts.id.disableAutoSelect();
+        google.accounts.id.revoke(localStorage.getItem('email'), (done: {success: boolean})  => {
+          console.log('Google session revoked');
+        });
+      } catch (e) {
+        console.warn('Google Sign-Out error:', e);
+      }
+    }
+
+    localStorage.clear();
+
+    this.router.navigate(['/index']).then(() => {
+      window.location.reload();
+    });
+
   }
 
   ngOnDestroy(): void {

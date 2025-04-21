@@ -10,8 +10,9 @@ import { HomeComponent } from './home/home.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { ContactusComponent } from './contactus/contactus.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import { AdminComponent } from './admin/admin.component';
-import { HttpClientModule } from '@angular/common/http';
+import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
+import {AdminModule} from './admin/admin.module';
+import {AuthInterceptor} from './services/authInterceptor';
 @NgModule({
   declarations: [
     AppComponent,
@@ -20,17 +21,23 @@ import { HttpClientModule } from '@angular/common/http';
     SignupComponent,
     HomeComponent,
     NavbarComponent,
-    ContactusComponent,
-    AdminComponent
+    ContactusComponent
   ],
   imports: [
     HttpClientModule,
     BrowserModule,
     AppRoutingModule,
-    ReactiveFormsModule, // Added for better form handling
-    FormsModule
+    ReactiveFormsModule,
+    FormsModule,
+    AdminModule
   ],
-  providers: [],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi: true
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

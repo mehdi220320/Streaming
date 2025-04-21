@@ -24,7 +24,7 @@ router.get('/:email',adminAuthorization,async (req,res)=>{
         res.send({error:error})
     }
 })
-router.put('/update/:id',async (req,res)=>
+router.put('/update/:id',[adminAuthorization,checkTokenExists],async (req,res)=>
 {
     try {
         await User.findByIdAndUpdate(req.params.id,res.body,{new:true})
@@ -33,10 +33,13 @@ router.put('/update/:id',async (req,res)=>
         res.status(400).send({error:error})
     }
 })
-router.delete('/delete/:id',async (req,res)=>
+router.delete('/delete/:id',[adminAuthorization,checkTokenExists],async (req,res)=>
 {
     try {
-        await  User.deleteOne(req.params.id)
+        await  User.deleteOne({ _id: req.params.id });
+        if (result.deletedCount === 0) {
+            return res.status(404).send({ error: "User not found" });
+        }
         res.status(200).send({message:"user deleted successfully"})
     } catch (error){
         res.status(400).send({error:error})

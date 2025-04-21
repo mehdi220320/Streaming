@@ -1,2 +1,7 @@
-<app-navbar *ngIf="url!=='/admin'"></app-navbar>
-<app-admin *ngIf="url==='/admin'"></app-admin>
+<ng-container *ngIf="!url.startsWith('/admin'); else adminLayout">
+  <app-navbar ></app-navbar>
+</ng-container>
+
+<ng-template #adminLayout>
+  <app-admin ></app-admin>
+</ng-template>

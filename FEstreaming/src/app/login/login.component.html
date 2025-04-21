@@ -46,6 +46,9 @@
               <div *ngIf="errorMessage" class="alert alert-danger">
                 {{ errorMessage }}
               </div>
+              <div *ngIf="showExpiredMessage " class="alert alert-danger">
+                {{ ExpiredMessage  }}
+              </div>
               <div class="field padding-bottom--24">
                 <label for="email">Email</label>
                 <input type="email" name="email" id="email" [(ngModel)]="email">
@@ -63,11 +66,16 @@
                 <label for="checkbox">
                   <input type="checkbox" [(ngModel)]="rememberMe" name="rememberMe" id="checkbox"> Stay signed in for a week
                 </label>
+
               </div>
+
               <div class="field padding-bottom--24">
                 <input type="submit" name="submit" style="background: #5469d4;" value="Continue" [disabled]="loading">
               </div>
+              <div class="field padding-bottom--24" id="google-btn"></div>
+
             </form>
+
           </div>
         </div>
         <div class="footer-link padding-top--24">

@@ -5,6 +5,8 @@ const userSchema=new mongoose.Schema({
     name:String,
     email:{required:true,unique:true,type:String},
     age:Number,
+    isGoogleAuth: { type: Boolean, default: false },
+    googleId: { type: String },
     role: {
         type: String,
         enum: ['admin', 'user'],
