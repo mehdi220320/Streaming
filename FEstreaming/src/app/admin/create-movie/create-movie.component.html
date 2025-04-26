@@ -3,46 +3,48 @@
     <i class="fa-solid fa-clapperboard"></i>
     <h1>Add New Movie</h1>
   </div>
-
-  <form id="movieForm">
+  <div *ngIf="errorMessage" class="alert alert-danger">
+    {{ errorMessage }}
+  </div>
+  <form id="movieForm" #ngForm="ngForm" (ngSubmit)="onRegister()">
     <div class="form-row">
       <div class="form-col">
         <div class="form-group">
           <label for="title">Movie Title*</label>
-          <input type="text" id="title" name="title" required placeholder="Enter movie title">
+          <input type="text" id="title" name="title" required placeholder="Enter movie title" [(ngModel)]="movie.title" required>
         </div>
       </div>
       <div class="form-col">
         <div class="form-group">
           <label for="studio">Studio/Production*</label>
-          <input type="text" id="studio" name="studio" required placeholder="Enter studio name">
+          <input type="text" id="studio" name="studio" required placeholder="Enter studio name" [(ngModel)]="movie.studio" required>
         </div>
       </div>
     </div>
 
     <div class="form-group">
       <label for="description">Description*</label>
-      <textarea id="description" name="description" required placeholder="Enter movie description"></textarea>
+      <textarea id="description" name="description" required placeholder="Enter movie description" [(ngModel)]="movie.description"></textarea>
     </div>
 
     <div class="form-row">
       <div class="form-col">
         <div class="form-group">
           <label for="releaseDate">Release Date*</label>
-          <input type="date" id="releaseDate" name="releaseDate" required>
+          <input type="date" id="releaseDate" name="releaseDate" [(ngModel)]="movie.releaseDate" >
         </div>
       </div>
       <div class="form-col">
         <div class="form-group">
           <label for="duration">Duration (minutes)*</label>
-          <input type="number" id="duration" name="duration" required placeholder="120">
+          <input type="number" id="duration" name="duration" [(ngModel)]="movie.duration" required placeholder="120">
         </div>
       </div>
     </div>
 
     <div class="form-group">
       <label for="genre">Genre*</label>
-      <select id="genre" name="genre" required>
+      <select id="genre" name="genre" [(ngModel)]="movie.genre" required>
         <option value="" disabled selected>Select genre</option>
         <option value="action">Action</option>
         <option value="comedy">Comedy</option>
@@ -57,14 +59,21 @@
     <div class="form-group">
       <label>Thumbnail Image*</label>
       <div class="file-upload">
-        <div class="file-upload-btn">
-          <i class="fas fa-cloud-upload-alt" style="font-size: 2rem; color: var(--primary); margin-bottom: 1rem;"></i>
-          <p>Drag & drop your image here or click to browse</p>
-          <span class="file-upload-label">Recommended size: 800x1200px (JPG, PNG)</span>
+        <div *ngIf="!imagePreview; else previewBlock" class="file-upload-btn" (click)="fileInput.click()">
+            <i class="fas fa-cloud-upload-alt" style="font-size: 2rem; color: var(--primary); margin-bottom: 1rem;"></i>
+            <p>Drag & drop the cover image here or click to browse</p>
+            <span class="file-upload-label">Recommended size: 800x1200px (JPG, PNG)</span>
         </div>
-        <input type="file" id="thumbnail" name="thumbnail" accept="image/*" class="file-upload-input" required>
+        <ng-template #previewBlock>
+          <p>Drag & drop to change the cover image here or click to browse</p>
+
+          <div class="thumbnail-preview-container">
+            <img [src]="imagePreview" class="thumbnail-preview" alt="Thumbnail preview">
+          </div>
+        </ng-template>
+
+        <input #fileInput type="file" id="thumbnail" (change)="onFileSelected($event)" accept="image/*" class="file-upload-input" required>
       </div>
-      <img id="thumbnailPreview" class="thumbnail-preview" alt="Thumbnail preview">
     </div>
 
     <div class="form-group">

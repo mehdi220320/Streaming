@@ -1,5 +1,5 @@
 const express=require('express')
-const  User=require('../models/user');
+const  User=require('./User');
 const router=express.Router();
 const { adminAuthorization,checkTokenExists } = require('../middlewares/authMiddleware');
 

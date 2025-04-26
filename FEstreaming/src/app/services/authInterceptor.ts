@@ -16,7 +16,6 @@ export class AuthInterceptor implements HttpInterceptor {
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
     const token = this.authService.getToken();
 
-    // Skip auth check for login/register routes
     if (request.url.includes('/auth/login') || request.url.includes('/auth/register')) {
       return next.handle(request);
     }
@@ -59,10 +58,8 @@ export class AuthInterceptor implements HttpInterceptor {
   }
 
   private handleTokenExpiration(): void {
-    // Clear all auth-related data
     this.authService.logout();
 
-    // Handle Google sign-out if needed
     if (this.authService.isGoogleAuth()) {
       this.authService.googleSignOut().then(() => {
         this.redirectToLogin();

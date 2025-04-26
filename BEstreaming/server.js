@@ -2,6 +2,14 @@ const express = require('express');
 const cors = require('cors');
 const mongoose = require('mongoose');
 require('dotenv').config();
+const fs = require('fs');
+const path = require('path');
+
+const uploadsDir = path.join(__dirname, 'uploads');
+
+if (!fs.existsSync(uploadsDir)) {
+    fs.mkdirSync(uploadsDir, { recursive: true });
+}
 const app = express();
 
 app.use(cors({
@@ -9,11 +17,13 @@ app.use(cors({
     methods: ['GET', 'POST','PUT','DELETE'],
     allowedHeaders: ['Content-Type', 'Authorization']
 }));
-const userRoutes = require('./routes/user.routes')
-const AuthRoutes = require('./routes/auth.routes')
-const MovieRoutes = require('./routes/movie.routes')
-const SaisonRoutes = require('./routes/saison.routes')
-const EpisodeRoutes = require('./routes/episode.routes')
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
+const userRoutes = require('./user/user.routes')
+const AuthRoutes = require('./auth/auth.routes')
+const MovieRoutes = require('./movie/Movie.routes')
+const SaisonRoutes = require('./serieTv/saison.routes')
+// const EpisodeRoutes = require('./serieTv/episode.routes')
+const SerieTvRoutes=require('./serieTv/SerieTv.routes')
 mongoose.connect(process.env.Mongo_URL)
     .then(() => console.log("Connected to MongoDB"))
     .catch(err => console.error("MongoDB connection error:", err));
@@ -21,8 +31,7 @@ app.use(express.json());
 app.use('/users', userRoutes);
 app.use('/auth', AuthRoutes)
 app.use('/movie', MovieRoutes)
-app.use('/saison', SaisonRoutes)
-app.use('/episode', EpisodeRoutes)
+app.use('/serieTv', SerieTvRoutes)
 
 app.listen(process.env.PORT, () => {
     console.log("Listening on port " + process.env.PORT);

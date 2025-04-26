@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import {Movie} from '../../models/Movie';
 import {UserService} from '../../services/user.service';
+import {MovieService} from '../../services/movie.service';
+import {DomSanitizer} from '@angular/platform-browser';
 
 @Component({
   selector: 'app-list-movies',
@@ -12,10 +14,16 @@ export class ListMoviesComponent {
   index=1;
   movies:Movie[] = [];
   showNum: number = 5;
-  constructor(private userService:UserService) { }
-
+  constructor(private movieService:MovieService,private sanitizer: DomSanitizer) { }
+  sanitizeImageUrl(url: string) {
+    return this.sanitizer.bypassSecurityTrustResourceUrl(url);
+  }
   ngOnInit(): void {
-
+    this.movieService.getMovies().subscribe({
+      next:(response)=>{
+        this.movies=response;
+      }
+    })
   }
   numViews(event: Event): void {
     const target = event.target as HTMLSelectElement;
@@ -52,20 +60,10 @@ export class ListMoviesComponent {
     }
     return this.movies.slice((this.index-1)*this.showNum,this.index*this.showNum);
   }
-  deleteUser(id: number): void {
+  deleteMovies(id: number): void {
     if (!id) {
       console.error('No ID provided for deletion');
       return;
     }
-
-    this.userService.deleteUser(id.toString()).subscribe({
-      next: () => {
-        this.movies = this.movies.filter(movie => movie._id !== id);
-        console.log('User deleted successfully');
-      },
-      error: (err) => {
-        console.error('Delete failed:', err);
-      }
-    });
   }
 }

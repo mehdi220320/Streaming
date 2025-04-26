@@ -3,7 +3,7 @@
     <img height="50" width="150" src="assets/images/logo.png" routerLink="index">
   </div>
 
-  <!-- Public Navigation (shown when on public routes AND not logged in) -->
+  <!-- Public Navigation (shown when on public serieTv AND not logged in) -->
   <div class="nav-links" *ngIf="!authService.isLoggedIn()">
     <a routerLink="index" routerLinkActive="active">Home</a>
     <a routerLink="login" routerLinkActive="active">Login</a>

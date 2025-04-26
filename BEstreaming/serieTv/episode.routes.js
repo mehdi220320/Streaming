@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const Saison = require('../models/saison');
+const Saison = require('./Saison');
 const { adminAuthorization, checkTokenExists } = require('../middlewares/authMiddleware');
 
 router.post('/add', [adminAuthorization, checkTokenExists], async (req, res) => {

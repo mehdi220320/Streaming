@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import {NavigationEnd, Router} from '@angular/router';
+import {AuthHttpService} from './services/AuthHttp.service';
 
 @Component({
   selector: 'app-root',
@@ -10,9 +11,10 @@ import {NavigationEnd, Router} from '@angular/router';
 export class AppComponent {
   title = 'FEstreaming';
   url=''
-  constructor(private router:Router) {
+  constructor(private router:Router,private auth:AuthHttpService) {
   }
   ngOnInit() {
+    if(!this.auth.isTokenValid()){ this.auth.logout()}
     this.router.events.subscribe(event => {
       if (event instanceof NavigationEnd) {
         this.url = event.url;

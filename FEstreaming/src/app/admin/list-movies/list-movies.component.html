@@ -25,30 +25,39 @@
           <thead>
           <tr>
             <th>id</th>
-            <th>Username</th>
-            <th>Email</th>
-            <th>Role</th>
+            <th>Title</th>
+            <th>Studio</th>
+            <th>Genre</th>
+            <th>Duration</th>
+            <th>Release Date</th>
+            <th>Cover Image</th>
             <th>Actions</th>
           </tr>
           </thead>
           <tbody>
           <tr *ngFor="let movie of tableViews()">
             <td>{{movie._id}}</td>
-            <td>{{ movie.name }}</td>
-            <td>{{ movie.email }}</td>
-            <td>{{ movie.role  }}</td>
+            <td>{{ movie.title }}</td>
+            <td>{{ movie.studio }}</td>
+            <td>{{ movie.genre  }}</td>
+            <td>{{ movie.duration  }}</td>
+            <td>{{ movie.releaseDate}}</td>
+            <td><img [src]="sanitizeImageUrl(movie.coverImage.path)" width="50" height="50"></td>
             <td>
               <button class="btn btn-primary mr-1" >Edit</button>
-              <button class="btn btn-danger" (click)="deleteUser(movie._id)">Delete</button>
+              <button class="btn btn-danger" (click)="deleteMovies(movie._id)">Delete</button>
             </td>
           </tr>
           </tbody>
           <tfoot>
           <tr>
             <td><strong>id</strong></td>
-            <td><strong>Name</strong></td>
-            <td><strong>Email</strong></td>
-            <td><strong>Role</strong></td>
+            <td><strong>Title</strong></td>
+            <td><strong>Studio</strong></td>
+            <td><strong>Genre</strong></td>
+            <td><strong>Duration</strong></td>
+            <td><strong>ReleaseDate</strong></td>
+            <td><strong>Cover Image</strong></td>
             <td><strong>Actions</strong></td>
           </tr>
           </tfoot>

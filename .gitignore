@@ -70,3 +70,7 @@ __snapshots__/
 
 # Optional: VS Code workspace settings
 *.code-workspace
+
+
+**/uploads
+**/uploads.*
