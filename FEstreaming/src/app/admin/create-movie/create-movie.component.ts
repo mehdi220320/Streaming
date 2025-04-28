@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import {MovieService} from '../../services/movie.service';
 import {Movie} from '../../models/Movie';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-create-movie',
@@ -30,7 +31,7 @@ export class CreateMovieComponent {
   isLoading = false;
   errorMessage = '';
 
-  constructor(private movieService: MovieService) {}
+  constructor(private movieService: MovieService,private router:Router) {}
 
   onFileSelected(event: any): void {
     const file: File = event.target.files[0];
@@ -79,6 +80,7 @@ export class CreateMovieComponent {
         console.log("Movie added successfully", response);
         this.isLoading = false;
         this.resetForm();
+        this.router.navigate(['/admin/movies']);
       },
       error: (error) => {
         console.error("Error adding movie", error);

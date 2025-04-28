@@ -33,7 +33,14 @@ class SerieTvController{
     static async getAll(req,res){
         try {
             const series=await SerieTvService.getAllSerieTv();
-            res.send(series)
+            const seriesWithImageUrls = series.map(serie => ({
+                ...serie.toObject(),
+                coverImage: {
+                    ...serie.coverImage,
+                    path: `http://${req.get('host')}/uploads/${path.basename(serie.coverImage.path)}`
+                }
+            }));
+            res.send(seriesWithImageUrls)
         }catch (e){res.status(400).send({ error: error.message });}
     }
     static async getByTitle(req,res){

@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
-import {UserService} from '../../services/user.service';
 import {Serie} from '../../models/Serie';
+import {DomSanitizer} from '@angular/platform-browser';
+import {SerieTvService} from '../../services/serie-tv.service';
 
 @Component({
   selector: 'app-list-serie',
@@ -10,11 +11,21 @@ import {Serie} from '../../models/Serie';
 })
 export class ListSerieComponent {
   index=1;
-  series:Serie[] = [];
+  series:Serie[]=[]
   showNum: number = 5;
-  constructor(private userService:UserService) { }
+  constructor(private serieService:SerieTvService,private sanitizer: DomSanitizer) { }
+  sanitizeImageUrl(url: string) {
+    return this.sanitizer.bypassSecurityTrustResourceUrl(url);
+  }
 
   ngOnInit(): void {
+    this.serieService.getAllSeries().subscribe({
+      next:(response)=>{
+        this.series=response
+      },error:(err)=>{
+        console.error(err)
+      }
+    })
 
   }
   numViews(event: Event): void {
@@ -58,14 +69,5 @@ export class ListSerieComponent {
       return;
     }
 
-    this.userService.deleteUser(id.toString()).subscribe({
-      next: () => {
-        this.series = this.series.filter(user => user._id !== id);
-        console.log('Serie deleted successfully');
-      },
-      error: (err) => {
-        console.error('Delete failed:', err);
-      }
-    });
   }
 }

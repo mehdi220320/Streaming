@@ -1,11 +1,10 @@
-import {environment} from '../models/environment';
-
-declare var google:any;
-
 import { Component } from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import { AuthHttpService } from '../services/AuthHttp.service';
 import { jwtDecode } from 'jwt-decode';
+import {environment} from '../models/environment';
+
+declare var google:any;
 @Component({
   selector: 'app-login',
   standalone: false,

@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import {Movie} from '../../models/Movie';
-import {UserService} from '../../services/user.service';
 import {MovieService} from '../../services/movie.service';
 import {DomSanitizer} from '@angular/platform-browser';
 

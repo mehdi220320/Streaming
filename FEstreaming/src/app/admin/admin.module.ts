@@ -12,6 +12,7 @@ import { CreateSerieComponent } from './create-serie/create-serie.component';
 
 import { ListMoviesComponent } from './list-movies/list-movies.component';
 import { ListSerieComponent } from './list-serie/list-serie.component';
+import {HttpClientModule} from '@angular/common/http';
 
 
 @NgModule({
@@ -33,6 +34,7 @@ import { ListSerieComponent } from './list-serie/list-serie.component';
       AdminRoutingModule,
       ReactiveFormsModule,
       FormsModule,
+      HttpClientModule
     ]
 })
 export class AdminModule { }

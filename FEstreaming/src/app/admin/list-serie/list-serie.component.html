@@ -1,8 +1,9 @@
 <div class="container-fluid">
-  <h3 class="text-dark mb-4 mt-4">Team</h3>
+  <h3 class="text-dark mb-4 mt-4">Admin panel</h3>
   <div class="card shadow">
-    <div class="card-header py-3">
-      <p class="text-primary m-0 fw-bold">Employee Info</p>
+    <div class="card-header py-3" style="display: flex; justify-content: space-between">
+      <p class="text-primary m-1 fw-bold">Serie List </p>
+      <button class="btn btn-primary" routerLink="/admin/createSerie">Add New Serie Tv</button>
     </div>
     <div class="card-body">
       <div class="row">
@@ -25,18 +26,24 @@
           <thead>
           <tr>
             <th>id</th>
-            <th>Username</th>
-            <th>Email</th>
-            <th>Role</th>
+            <th>Title</th>
+            <th>Studio</th>
+            <th>Genre</th>
+            <th>Number Of Episodes</th>
+            <th>Release Date</th>
+            <th>Cover Image</th>
             <th>Actions</th>
           </tr>
           </thead>
           <tbody>
           <tr *ngFor="let serie of tableViews()">
             <td>{{serie._id}}</td>
-            <td>{{ serie.name }}</td>
-            <td>{{ serie.email }}</td>
-            <td>{{ serie.role  }}</td>
+            <td>{{ serie.title }}</td>
+            <td>{{ serie.studio }}</td>
+            <td>{{ serie.genre  }}</td>
+            <td>{{ serie.number_Of_episodes  }}</td>
+            <td>{{ serie.releaseDate}}</td>
+            <td><img [src]="sanitizeImageUrl(serie.coverImage.path)" width="50" height="50"></td>
             <td>
               <button class="btn btn-primary mr-1" >Edit</button>
               <button class="btn btn-danger" (click)="deleteUser(serie._id)">Delete</button>
@@ -46,9 +53,12 @@
           <tfoot>
           <tr>
             <td><strong>id</strong></td>
-            <td><strong>Name</strong></td>
-            <td><strong>Email</strong></td>
-            <td><strong>Role</strong></td>
+            <td><strong>Title</strong></td>
+            <td><strong>Studio</strong></td>
+            <td><strong>Genre</strong></td>
+            <td><strong>Number Of Episodes</strong></td>
+            <td><strong>ReleaseDate</strong></td>
+            <td><strong>Cover Image</strong></td>
             <td><strong>Actions</strong></td>
           </tr>
           </tfoot>
