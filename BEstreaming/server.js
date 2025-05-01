@@ -23,7 +23,7 @@ const AuthRoutes = require('./auth/auth.routes')
 const MovieRoutes = require('./movie/Movie.routes')
 const SaisonRoutes = require('./serieTv/saison.routes')
 // const EpisodeRoutes = require('./serieTv/episode.routes')
-    console.log("Listening on port " + process.env.PORT);
+    console.log("Listening on port " + process.env.Mongo_URL);
 
 const SerieTvRoutes=require('./serieTv/SerieTv.routes')
 mongoose.connect(process.env.Mongo_URL)
