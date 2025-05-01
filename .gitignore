@@ -11,7 +11,7 @@ Thumbs.db
 **/.env
 **/.env.*
 
-**/environment.ts
+#**/environment.ts
 
 # === NODE.JS PROJECT ===
 # Build outputs
