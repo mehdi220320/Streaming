@@ -1,7 +1,6 @@
 const express = require('express')
 const MovieController = require('./MovieController');
 const router = express.Router();
-const path = require('path');
 
 const { adminAuthorization, checkTokenExists } = require('../middlewares/authMiddleware');
 const upload = require('../middlewares/uploadMiddleware');
