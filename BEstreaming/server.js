@@ -24,7 +24,7 @@ const MovieRoutes = require('./movie/Movie.routes')
 const SaisonRoutes = require('./serieTv/saison.routes')
 // const EpisodeRoutes = require('./serieTv/episode.routes')
 const SerieTvRoutes=require('./serieTv/SerieTv.routes')
-mongoose.connect("mongodb+srv://mehdi:mehdi@cluster0.1yeie.mongodb.net/moxiDB")
+mongoose.connect(process.env.Mongo_URL)
     .then(() => console.log("Connected to MongoDB"))
     .catch(err => console.error("MongoDB connection error:", err));
 app.use(express.json());
